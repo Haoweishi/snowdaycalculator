@@ -10,6 +10,7 @@ app.use(function(req, res, next) {
 	
 app.use(express.static('htdocs'));
 
+//Defunct algorithm, will be removed soon.
 function calc(height, temp){
 var pecentage = 0;
 var cache = (0.01)*(height-9);
@@ -28,6 +29,9 @@ snow = 99;
 return snow;
 }
 
+/**
+Current version of formula. Dynamic adjustments coming soon.
+*/
 function newFormula(startHour, windSpeed, snowLevel, snowRate, avgTemp, latitude){
 	var points = 0.0;
 	if(startHour>=3 && startHour<9){
