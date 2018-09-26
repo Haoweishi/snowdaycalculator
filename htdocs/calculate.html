@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Site made with Mobirise Website Builder v4.3.4, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.3.4, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+  <meta name="description" content="Calculate snow days">
+  <title>Calculate</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,400&subset=cyrillic,latin,greek,vietnamese">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/mobirise/css/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <script>
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+  </script>
+  
+    <script type="text/javascript" src = "detectmobilebrowser.js"></script>
+
+</head>
+<body>
+<section class="mbr-navbar mbr-navbar--freeze mbr-navbar--absolute mbr-navbar--sticky mbr-navbar--auto-collapse" id="ext_menu-7" data-rv-view="18">
+    <div class="mbr-navbar__section mbr-section">
+        <div class="mbr-section__container container">
+            <div class="mbr-navbar__container">
+                <div class="mbr-navbar__column mbr-navbar__column--s mbr-navbar__brand">
+                    <span class="mbr-navbar__brand-link mbr-brand mbr-brand--inline">
+                        
+                        <span class="mbr-brand__name"><a class="mbr-brand__name text-white" href="https://snowday.today">SNOWDAY TODAY</a></span>
+                    </span>
+                </div>
+                <div class="mbr-navbar__hamburger mbr-hamburger"><span class="mbr-hamburger__line"></span></div>
+                <div class="mbr-navbar__column mbr-navbar__menu">
+                    <nav class="mbr-navbar__menu-box mbr-navbar__menu-box--inline-right">
+                        <div class="mbr-navbar__column">
+                            <ul class="mbr-navbar__items mbr-navbar__items--right float-left mbr-buttons mbr-buttons--freeze mbr-buttons--right btn-decorator mbr-buttons--active mbr-buttons--only-links"><li class="mbr-navbar__item"><a class="mbr-buttons__link btn text-white" href="index.html"><p>HOME</p></a></li> <li class="mbr-navbar__item"><a class="mbr-buttons__link btn text-white" href="index.html#form2-5">SNOW DAY</a></li> <li class="mbr-navbar__item"><a class="mbr-buttons__link btn text-white" href="contact.html">CONTACT</a></li></ul>                            
+                            
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="engine"><a href="https://mobirise.co/i">build a website for free</a></section><section class="mbr-section mbr-after-navbar" id="header3-9" data-rv-view="20">
+    <div class="mbr-section__container container mbr-section__container--first">
+        <div class="mbr-header mbr-header--wysiwyg row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <h3 class="mbr-header__text">Snow day predictions for <span id="townname"></span></h3>
+                <p class="mbr-header__subtext" id="date"></p>
+				<script>
+				var now = new Date();
+				var string = (now.getMonth()+1) + "/" + now.getDate() + "/" + now.getFullYear();
+				document.getElementById("date").innerHTML = string;
+				document.getElementById("townname").innerHTML = getParameterByName('zip');
+				</script>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mbr-section" id="content1-a" data-rv-view="22">
+    <div class="mbr-section__container container mbr-section__container--last">
+        <div class="row">
+            <div class="mbr-article mbr-article--wysiwyg col-sm-8 col-sm-offset-2" id = "results">LOADING RESULTS PLEASE WAIT...</div>
+        </div>
+    </div>
+</section>
+
+<script>
+var requester = new XMLHttpRequest();
+requester.onreadystatechange = function(){
+if(this.readyState == 4 && this.status == 200){
+var results = JSON.parse(this.responseText);
+document.getElementById("townname").innerHTML = results.city + ", " + getParameterByName("zip");
+var dateDial = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+if(now.getDay()!=5&&now.getDay()!=6&&now.getDay()!=7){
+if(now.getHours()>=0 && now.getHours()<=9){
+document.getElementById("results").innerHTML = "Today's prediction: <b>" + Math.floor(results.percentage[0]*100) + "%</b> chance for a snow day - " + results.remark[0];
+document.getElementById("results").innerHTML += "<br/>Tomorrow's prediction: <b>" + Math.floor(results.percentage[1]*100) + "%</b> chance for a snow day - " + results.remark[1];
+}else{
+document.getElementById("results").innerHTML = "Tomorrow's prediction: <b>" + Math.floor(results.percentage[0]*100) + "%</b> chance for a snow day - " + results.remark[0];
+if(now.getDay()!=4){
+document.getElementById("results").innerHTML += "<br/>" + dateDial[now.getDay()+2] + "'s prediction: <b>" + Math.floor(results.percentage[1]*100) + "%</b> chance for a snow day - " + results.remark[1];
+}
+}
+}else if(now.getDay()==5 && now.getHours()<=9){
+document.getElementById("results").innerHTML = "Today's prediction: <b>" + Math.floor(results.percentage[0]*100) + "%</b> chance for a snow day - " + results.remark[0];
+document.getElementById("results").innerHTML += "<br/>Monday's prediction: <b>" + Math.floor(results.percentage[3]*100) + "%</b> chance for a snow day - " + results.remark[3];
+}else{
+var selector = now.getDay();
+if(selector == 0){
+selector = 7;
+}
+document.getElementById("results").innerHTML = "Monday's prediction: <b>" + Math.floor(results.percentage[7-selector]*100) + "%</b> chance for a snow day - " + results.remark[7-selector];
+document.getElementById("results").innerHTML += "<br/>Tuesday's prediction: <b>" + Math.floor(results.percentage[8-selector]*100) + "%</b> chance for a snow day - " + results.remark[8-selector];
+}
+
+
+}
+}
+requester.open("GET","/predict?zip=" + getParameterByName("zip"), true);
+requester.send();
+</script>
+
+<footer class="mbr-section mbr-section--relative mbr-section--fixed-size" id="footer1-8" data-rv-view="23" style="background-color: rgb(68, 68, 68);">
+    
+    <div class="mbr-section__container container">
+        <div class="mbr-footer mbr-footer--wysiwyg row" style="padding-top: 36.9px; padding-bottom: 36.9px;">
+            <div class="col-sm-12">
+                <p class="mbr-footer__copyright">Copyright (c) 2017 Haowei Shi. No guarantee of accuracy. Maps used under fair use conditions.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/smooth-scroll/smooth-scroll.js"></script>
+  <script src="assets/mobirise/js/script.js"></script>
+  
+  
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+<head>
+
+</head>
+<body>
+<p id = "interval"><button onclick="reset()">Reset</button></p>
+<p id = "vecsum">Vector magnitude of acceleration: <span id = "accel">0</span></p>
+<p>Current speed M/S: <span id = "speed">0</span></p>
+<p>Dist to origin M: <span id = "dist">0</span></p>
+<script>
+var speed = 0;
+var dist = 0;
+var dispspeed = 0;
+var dispdist = 0;
+window.ondevicemotion = function(event) {
+	var accelerationX = Math.round(event.acceleration.x * 1000)/1000;
+	var accelerationY = Math.round(event.acceleration.y * 1000)/1000;
+	var accelerationZ = Math.round(event.acceleration.z * 1000)/1000;
+	sumaccel = Math.sqrt(accelerationX*accelerationX+accelerationY*accelerationY+accelerationZ*accelerationZ);
+	document.getElementById("accel").innerHTML = accelerationY;
+	speed = speed + accelerationY*event.interval;
+	dispspeed = Math.round((speed)*10)/10;
+	document.getElementById("speed").innerHTML = dispspeed;
+	dist = dist + speed*event.interval;
+	dispdist = Math.round((dist)*10)/10;
+	document.getElementById("dist").innerHTML = dispdist;
+
+}
+
+function reset(){
+speed = 0;
+dist=0;
+dispspeed=0;
+dispdist=0;
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "hsharksnowday",
+  "version": "1.0.0",
+  "description": "A snowday calculator",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "snowday"
+  ],
+  "author": "hshark",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/snowdaysystems.git"
+  }
+}
